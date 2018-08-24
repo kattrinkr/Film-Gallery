@@ -56,6 +56,6 @@ const Styles = theme => ({
         top: '348px',
         left: '816px'
     }
-  })
+  });
   
   export default Styles;

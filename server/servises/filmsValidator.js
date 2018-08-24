@@ -17,7 +17,7 @@ function userValidator (req, res, next) {
         errors.password = ERRORS.password.length
     } 
     if (Object.keys(errors).length !== 0) {
-        res.json(errors)
+        res.json(errors);
     } else {
         next()
     }

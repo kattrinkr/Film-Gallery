@@ -1,4 +1,5 @@
-import Users from '../models/userModel'
+import passport from 'passport'
+
 import Films from '../models/filmModel'
 
 async function getFilms(req, res) {
@@ -15,45 +16,40 @@ async function getFilms(req, res) {
     }
 }
 
-async function registration(req, res) {
-    /*const user = new Users ({ 
-        name: req.body.name,
-        email: req.body.email,
-        password: req.body.password
-    })
-    try {
-        const userExist = await Users.findOne({email: req.body.email});
-        if (userExist) {
-            res.status(422).send(`User with EMAIL ${req.body.email} is already exist`)
+async function registration(req, res, next) {
+    await passport.authenticate('local-signup', function(err, user, info) {
+        let result;
+        if (err) { 
+            result =  next(err) 
+        } else if (!user) { 
+            result = res.json({
+                message: info.message
+            })
         } else {
-            const userItem = await user.save();
-            res.send(userItem);
+            result = res.json({
+                message: info.message
+            })
         }
-    } catch (err) {
-        if (err.name === 'MongoError' && err.code === 11000) {
-            res.status(409).send('Duplicate key');
-        }
-        res.status(500).send(err);
-    } */
-    console.log(res)
+        return result;
+    })(req, res, next)
 }
 
-async function logIn(req, res) {
-    try {
-        let userItem = await Users.findOne({email: req.body.email});
-        if (!userItem) {
-            res.status(422).send(`User with EMAIL ${req.body.email} is not exist`)
+async function login(req, res, next) {
+    await passport.authenticate('local-login', function(err, user, info) {
+        let result;
+        if (err) { 
+            result = next(err) 
+        } else if (!user) {
+            result = res.json({
+                message: info.message
+            })
         } else {
-            userItem = await Users.findOne({email: req.body.email, password: req.body.password})
-            if (!userItem) {
-                res.status(422).send(`Wrong password for user with EMAIL ${req.body.email}`)
-            } else {
-                res.send(`Welcome to the film library, ${userItem.name}!`)
-            }
+            result = res.json({
+                message: info.message
+            })
         }
-    } catch (err) {
-        res.status(500).send(err);
-    }
+        return result;
+    })(req, res, next)
 }
 
-export {getFilms, registration, logIn}
+export {getFilms, registration, login}
