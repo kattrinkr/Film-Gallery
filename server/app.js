@@ -1,6 +1,6 @@
 import express from 'express'
 import bodyPaser from 'body-parser'
-import {router as filmsRouter} from './routes/films.js'
+import {router as filmsRouter} from './routes/router.js'
 import mongoose from 'mongoose'
 import passport from 'passport'
 import Passport from './config/passport'

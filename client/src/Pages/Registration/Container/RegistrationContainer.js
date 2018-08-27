@@ -11,10 +11,11 @@ import * as Actions from '../Actions'
 class RegistrationContainer extends Component {
     constructor(props){
         super(props); 
+        
         this.state = {
             message: null
         }
-        
+
         this.onSubmit = this.onSubmit.bind(this);
     }
 
@@ -32,7 +33,6 @@ class RegistrationContainer extends Component {
     }
     
     onSubmit (data) {
-        this.props.actions.setData(data);
         //this.props.history.push(`${process.env.PUBLIC_URL}`+'/login-redux-form/success');
         fetch('/films-library/registration', {
             method: 'POST', 
@@ -47,11 +47,12 @@ class RegistrationContainer extends Component {
         })
         .then(res => res.json())
         .then(res => {
-            this.setState(() => {
-                return {
-                    message: res.message
-                }  
-            })
+            const payload = {
+                ...data,
+                message: res.message
+            }
+            this.setState(payload)    
+            this.props.actions.setData(payload);
         })
     }
 
@@ -66,7 +67,7 @@ class RegistrationContainer extends Component {
         return <Registration {...props} />;
     }
 }
-const selector = formValueSelector('ReduxForm')
+const selector = formValueSelector('SignupForm')
 
 const mapStateToProps = (state) => ({
     email: selector(state, 'email'),

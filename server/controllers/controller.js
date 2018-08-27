@@ -4,13 +4,19 @@ import Films from '../models/filmModel'
 
 async function getFilms(req, res) {
     let search = {};
+    let sort = {};
     if (req.params.category) {
+        if (req.params.category === 'null') {
+             
+    if (req.params.rating) {
+        sort.rating = -1
+    }
+        } else
         search.category = req.params.category;
-    } 
+    }
     try {
-        const filmItems = await Films.find(search);
-        //res.render('../public/films.ejs', {films: filmItems, next: next, prev: prev, page: page, category: req.params.category});  
-        res.json(filmItems)
+        const filmItems = await Films.find(search).sort(sort); 
+        res.json(filmItems);
     } catch (err) {
         res.status(500).send(err);
     }

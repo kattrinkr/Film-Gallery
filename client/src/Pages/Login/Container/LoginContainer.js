@@ -12,6 +12,7 @@ import * as Actions from '../Actions'
 class LoginContainer extends Component {
     constructor(props){
         super(props); 
+
         this.state = {
             message: null
         }
@@ -47,11 +48,12 @@ class LoginContainer extends Component {
         })
         .then(res => res.json())
         .then(res => {
-            this.setState(() => {
-                return {
-                    message: res.message
-                }  
-            })
+            const payload = {
+                ...data,
+                message: res.message
+            }
+            this.setState(payload)    
+            this.props.actions.setData(payload);
         })
     }
 

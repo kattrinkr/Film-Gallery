@@ -1,6 +1,7 @@
 const initialState = {
     email: '',
-    password: ''
+    password: '', 
+    message: ''
 };
 
 const reducer = (state = initialState, action) => {
@@ -11,7 +12,8 @@ const reducer = (state = initialState, action) => {
                     ...state,
                     name: action.name,
                     email: action.email,
-                    password: action.password 
+                    password: action.password, 
+                    message: action.message  
                 }
             break;
             default: 

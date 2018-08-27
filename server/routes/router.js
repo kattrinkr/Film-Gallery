@@ -15,7 +15,7 @@ router.use(session({ cookie: { maxAge: 60000 },
     saveUninitialized: false
 }))
 
-router.get('(/:category)?(/pages/:page)?', getFilms);
+router.get('(/:category)?(/pages/:page)?(/:rating)?', getFilms);
 router.post('/registration', userValidator, registration)
 router.post('/login', userValidator, login)
 

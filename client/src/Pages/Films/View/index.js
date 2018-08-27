@@ -2,11 +2,29 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import { withStyles } from '@material-ui/core/styles'
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+import Switch from '@material-ui/core/Switch';
 
 import Styles from './styles';
 
-const Films = ({filmItems, classes}) => {
+const Films = ({filmItems, categories, category, sort, categoryFilter, ratingSort, classes}) => {
     return (
+        <div>
+            <Select onChange={categoryFilter} value={category}>
+            {categories? categories.map(item => (
+                <MenuItem
+                    key={item}
+                    value={item}
+                >
+                    {item}
+                </MenuItem>
+            )): null}
+          </Select>
+          <Switch
+          checked={sort}
+          onChange={ratingSort}
+        />
         <div>{filmItems? filmItems.map(item => 
             <div className={classes.film} key={item._id}>
                 <h3>ID: {item._id}</h3>
@@ -15,6 +33,7 @@ const Films = ({filmItems, classes}) => {
                 <p>{item.description}</p>
                 <p>Rating: {item.rating}</p>
             </div>) : null}
+        </div>
         </div>
     )
 }

@@ -23,6 +23,7 @@ const Registration = ({message, handleSubmit, classes}) => {
                    component={TextField}
                 />
                 <Field name="password"
+                   type="password"
                    floatingLabelText="Password" 
                    className={classes.input}
                    component={TextField}
