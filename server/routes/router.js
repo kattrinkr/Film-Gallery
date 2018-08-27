@@ -3,8 +3,8 @@ import passport from 'passport'
 import session from 'express-session'
 import flash from 'connect-flash'
 
-import {getFilms, registration, login} from '../controllers/filmController'
-import {userValidator} from '../servises/filmsValidator'
+import {getFilms, registration, login} from '../controllers/controller'
+import {userValidator} from '../servises/userValidator'
 
 const router = express.Router()
 router.use(passport.initialize())

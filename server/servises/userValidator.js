@@ -1,4 +1,4 @@
-import {REG, MIN_VALUE_FOR_PASSWORD, ERRORS} from '../constants/films'
+import {REG, MIN_VALUE_FOR_PASSWORD, ERRORS} from '../constants/constant'
 
 function userValidator (req, res, next) {
     let errors = {};
