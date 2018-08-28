@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 
 import { connect} from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { formValueSelector } from 'redux-form'
 
 import Login from '../View'
 import {emailValidator, passwordValidator} from '../Servises/validator'
@@ -34,7 +33,6 @@ class LoginContainer extends Component {
     }
     
     onSubmit (data) {
-        this.props.actions.setData(data);
         //this.props.history.push(`${process.env.PUBLIC_URL}`+'/login-redux-form/success');
         fetch('/films-library/login', {
             method: 'POST', 
@@ -49,7 +47,8 @@ class LoginContainer extends Component {
         .then(res => res.json())
         .then(res => {
             const payload = {
-                ...data,
+                email: data.email,
+                name: res.name,
                 message: res.message
             }
             this.setState(payload)    
@@ -58,9 +57,10 @@ class LoginContainer extends Component {
     }
 
     render() {
-        const { message } = this.state;
+        const { message, name } = this.state;
         const props = {
             message,
+            name,
             onSubmit: this.onSubmit,
             form: 'LoginForm',
             validate: LoginContainer.validate
@@ -68,12 +68,6 @@ class LoginContainer extends Component {
         return <Login {...props} />;
     }
 }
-const selector = formValueSelector('ReduxForm')
-
-const mapStateToProps = (state) => ({
-    email: selector(state, 'email'),
-    password: selector(state, 'password')
-})
 
 const mapDispatchToProps = (dispatch) => {
     return {
@@ -81,4 +75,4 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoginContainer)
+export default connect(false, mapDispatchToProps)(LoginContainer)

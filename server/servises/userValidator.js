@@ -1,4 +1,5 @@
 import {REG, MIN_VALUE_FOR_PASSWORD, ERRORS} from '../constants/constant'
+import passport from 'passport'
 
 function userValidator (req, res, next) {
     let errors = {};
@@ -21,6 +22,43 @@ function userValidator (req, res, next) {
     } else {
         next()
     }
-};
+}
 
-export {userValidator}
+async function registration(req, res, next) {
+    await passport.authenticate('local-signup', function(err, user, info) {
+        let result;
+        if (err) { 
+            result =  next(err) 
+        } else if (!user) { 
+            result = res.json({
+                message: info.message
+            })
+        } else {
+            result = res.json({
+                message: info.message
+            })
+        }
+        return result;
+    })(req, res, next)
+}
+
+async function login(req, res, next) {
+    await passport.authenticate('local-login', function(err, user, info) {
+        let result;
+        if (err) { 
+            result = next(err) 
+        } else if (!user) {
+            result = res.json({
+                message: info.message
+            })
+        } else {
+            result = res.json({
+                name: info.name,
+                message: info.message
+            })
+        }
+        return result;
+    })(req, res, next)
+}
+
+export {userValidator, registration, login}

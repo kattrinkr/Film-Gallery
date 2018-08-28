@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 
 import { connect} from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { formValueSelector } from 'redux-form'
 
 import Registration from '../View'
 import {emailValidator, passwordValidator} from '../Servises/validator'
@@ -48,7 +47,7 @@ class RegistrationContainer extends Component {
         .then(res => res.json())
         .then(res => {
             const payload = {
-                ...data,
+                email: data.email,
                 message: res.message
             }
             this.setState(payload)    
@@ -67,12 +66,6 @@ class RegistrationContainer extends Component {
         return <Registration {...props} />;
     }
 }
-const selector = formValueSelector('SignupForm')
-
-const mapStateToProps = (state) => ({
-    email: selector(state, 'email'),
-    password: selector(state, 'password')
-})
 
 const mapDispatchToProps = (dispatch) => {
     return {
@@ -80,4 +73,4 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(RegistrationContainer)
+export default connect(false, mapDispatchToProps)(RegistrationContainer)

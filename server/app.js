@@ -1,9 +1,11 @@
 import express from 'express'
 import bodyPaser from 'body-parser'
-import {router as filmsRouter} from './routes/router.js'
 import mongoose from 'mongoose'
 import passport from 'passport'
+
 import Passport from './config/passport'
+import {router as filmsRouter} from './routes/filmsRouter.js'
+import {router as usersRouter} from './routes/usersRouter.js'
 
 Passport(passport);
 const ERROR_MESSAGE = { Error: 'URL not found' };
@@ -17,6 +19,7 @@ async function run() {
     app.use(bodyPaser.urlencoded({ extended: true }));
     
     app.use('/films-library', filmsRouter);
+    app.use('/films-library', usersRouter);
     
     app.use(function(req, res) {
         res.status(404).json(ERROR_MESSAGE)

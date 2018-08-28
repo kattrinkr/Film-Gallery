@@ -4,10 +4,10 @@ import { withStyles } from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button'
 import { Field, reduxForm } from 'redux-form'
 
-import TextField from '../Components'
+import TextField from '../../../Components'
 import Styles from './styles';
 
-const Login = ({message, handleSubmit, classes}) => {
+const Login = ({message, name, handleSubmit, classes}) => {
     return (
         <div>
             <form className={classes.form} onSubmit={handleSubmit}>  
@@ -18,6 +18,7 @@ const Login = ({message, handleSubmit, classes}) => {
                    component={TextField}
                 />
                 <Field name="password"
+                   type="password"
                    floatingLabelText="Password" 
                    className={classes.input}
                    component={TextField}
@@ -29,6 +30,7 @@ const Login = ({message, handleSubmit, classes}) => {
                   type="submit"> Log In!
                 </Button>
                 <p>{message}</p>
+                <p>{name}</p>
             </form>
         </div>
     )

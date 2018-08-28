@@ -5,6 +5,7 @@
   "homepage": "http://kattrinkr.github.io/Film-Gallery",
   "dependencies": {
     "@material-ui/core": "^1.5.1",
+    "font-awesome": "^4.7.0",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
     "react-redux": "^5.0.7",

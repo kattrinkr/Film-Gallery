@@ -35,7 +35,7 @@ async function Passport(passport) {
                     if (!save) {
                         result = done(null, newUser, { message: 'Error with connection' })
                     } else {
-                        result = done(null, newUser, { message: 'Success' })
+                        result = done(null, newUser, { message: 'Success'})
                     }
                 }
             } catch (err) {
@@ -57,7 +57,7 @@ async function Passport(passport) {
             } else if (!user.validPassword(password)) {
                 result = done(null, false, { message: `Wrong password for ${email}` })
             } else {
-                result = done(null, user, { message: 'Success' })
+                result = done(null, user, { name: user.name, message: 'Success' })
             }
         } catch (err) {
             result = done(err, false, { message: 'Internal error' })
