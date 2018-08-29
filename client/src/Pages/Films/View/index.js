@@ -2,20 +2,16 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import { withStyles } from '@material-ui/core/styles'
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
-import Switch from '@material-ui/core/Switch';
-import TextField from '@material-ui/core/TextField';
-import '../../../../node_modules/font-awesome/css/font-awesome.min.css';
+import Select from '@material-ui/core/Select'
+import MenuItem from '@material-ui/core/MenuItem'
+import Switch from '@material-ui/core/Switch'
+import TextField from '@material-ui/core/TextField'
+import '../../../../node_modules/font-awesome/css/font-awesome.min.css'
 
-import Styles from './styles';
+import {AVATARS} from '../Constants'
+import Styles from './styles'
 
-const Films = ({filmItems, categories, category, sortByRating, categorySort, ratingSort, filmSearch, infiniteScroll, classes}) => {
-    window.addEventListener('scroll', function(event) {
-        if ((window.innerHeight + window.scrollY) >= (document.body.offsetHeight - 500)) {
-            infiniteScroll()
-        }
-    })
+const Films = ({filmItems, categories, category, sortByRating, categorySort, ratingSort, filmSearch, classes}) => {
     return (
         <div>
             <div className={classes.dashboard}>
@@ -31,7 +27,7 @@ const Films = ({filmItems, categories, category, sortByRating, categorySort, rat
             </div>
             <div className={classes.rating}>
                 <p>Sort by RATING:</p>
-                <Switch checked={sortByRating} onChange={ratingSort}/>
+                <Switch checked={sortByRating} onChange={ratingSort} value='lol'/>
             </div>
             <div className={classes.title}>
                 <p>Search by TITLE:</p>
@@ -41,9 +37,8 @@ const Films = ({filmItems, categories, category, sortByRating, categorySort, rat
             </div>
             <div className={classes.library}>{filmItems.map(item => 
                 <div className={classes.film} key={item._id}>
-                    <h3>ID: {item._id}</h3>
                     <h2>{item.title}</h2>
-                    <img src={require('../View/images/titanic.jpg')} alt="avatar" className={classes.avatar}/>
+                    <img src={AVATARS[item._id]} alt={item.title} className={classes.avatar}/>
                     <p>Category: {item.category}</p>
                     <p>{item.description}</p>
                     <p>Rating: {item.rating}</p>

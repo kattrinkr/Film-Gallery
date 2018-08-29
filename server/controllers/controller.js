@@ -15,9 +15,7 @@ async function getFilms(req, res) {
         search.title = new RegExp( `^${req.params.film}((([A-Za-z]+)?(\\s)?)+)?$`);
     }
     try {
-        console.log(page);
         const filmItems = await Films.find(search).sort(sort).limit(limit).skip(page*limit-limit);
-        filmItems.map(item => console.log(item.title))
         res.json(filmItems);
     } catch (err) {
         res.status(500).send(err);

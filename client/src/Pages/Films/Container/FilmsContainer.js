@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import Films from '../View'
+import {categorySortUrl, ratingSortUrl,filmSearchUrl, infiniteScrollUrl} from '../Servises'
 
 class FilmsContainer extends Component {
     constructor(props){
@@ -10,14 +11,17 @@ class FilmsContainer extends Component {
             categories: [], 
             category: 'all', 
             sortByRating: false,
-            page: 2
+            page: 2,
+            bottom: 0,
+            search: ''
         }
 
         this.infiniteScroll = this.infiniteScroll.bind(this);
     }
 
     componentDidMount() {
-    fetch('/films-library')
+        window.addEventListener('scroll', this.infiniteScroll);
+        fetch('/films-library')
         .then(res => res.json())
         .then(filmItems => {
             if (filmItems) {
@@ -27,105 +31,82 @@ class FilmsContainer extends Component {
                     return {
                         filmItems: filmItems, 
                         categories: categories,
-                        sortByRating: false
+                        sortByRating: false,
+                        bottom: window.scrollY
                     }  
                 })
             }
         })  
     }
 
+    componentWillUnmount() {
+        window.removeEventListener('scroll', this.infiniteScroll);
+    }
+
     categorySort = event => {
-        this.setState({ category: event.target.value });
-        let url;
-        if (event.target.value !== 'all') {
-            url = `/films-library/${event.target.value}`
-        } else {
-            url = `/films-library`
-        }
+        const url = categorySortUrl(event, this.state);
         fetch(url)
         .then(res => res.json())
         .then(filmItems => {
             if (filmItems) {
-            this.setState(() => {
-                return {
-                    filmItems: filmItems,
-                    sortByRating: false.category
-                }  
-            })
+                this.setState(() => {
+                    return {
+                        filmItems: filmItems,
+                        category: event.target.value,
+                        page: 2,
+                        bottom: 0
+                    }  
+                })
             }
         }) 
     }
 
     ratingSort = event => {
-        let url;
-        let sort;
-        if (this.state.sortByRating) {
-            if (this.state.category !== 'all') {
-                url = `/films-library/${this.state.category}`
-            } else {
-                url = `/films-library`
-            }
-            sort = false; 
-        } else {
-            if (this.state.category !== 'all') {
-                url = `/films-library/${this.state.category}/sort/rating`
-            } else {
-                url = `/films-library/sort/rating`
-            }
-            sort = true;
-        }
-        fetch(url)
+        const result = ratingSortUrl(this.state);
+        fetch(result.url)
         .then(res => res.json())
         .then(filmItems => {
             if (filmItems) {
-            this.setState(() => {
-                return {
-                    filmItems: filmItems,
-                    sortByRating: sort
-                }  
-            })
+                this.setState(() => {
+                    return {
+                        filmItems: filmItems,
+                        sortByRating: result.sort,
+                        page: 2,
+                        bottom: 0
+                    }  
+                })
             }
         }) 
     }
 
     filmSearch = event => {
-        let url;
-        if (event.target.value) {
-            url = `/films-library/film/${event.target.value}`
-        } else {
-            url = `/films-library`
-        }
+        const search=`${event.target.value}`
+        const url = filmSearchUrl(event, this.state);
         fetch(url)
         .then(res => res.json())
         .then(filmItems => {
             if (filmItems) {
-            this.setState(() => {
-                return {
-                    filmItems: filmItems,
-                    sortByRating: false,
-                    category: 'all'
-                }  
-            })
+                this.setState(() => {
+                    return {
+                        filmItems: filmItems,
+                        page: 2,
+                        search: search,
+                        bottom: 0
+                    }  
+                })
             }
         })
     }
 
     infiniteScroll (){
         if (this.state.page < 4) {
-            let url;
-        if (this.state.category !== 'all') {
-            url = `/films-library/${this.state.category}/pages/${this.state.page}`;
-            if (this.state.sortByRating) url = `/films-library/${this.state.category}/pages/${this.state.page}/sort/rating`
-            else url = `/films-library/${this.state.category}/pages/${this.state.page}`
-        } else {
-            if (this.state.sortByRating) url = `/films-library/pages/${this.state.page}/sort/rating`
-            else url = `/films-library/pages/${this.state.page}`
-        }
-        fetch(url)
+            let url = infiniteScrollUrl(this.state);
+        if ((window.innerHeight + document.documentElement.scrollTop === document.documentElement.offsetHeight) && (window.scrollY > this.state.bottom)) {
+            fetch(url)
             .then(res => res.json())
             .then(filmItems => {
                 if (filmItems) {
-                    const prevFilms = this.state.filmItems;
+                    let prevFilms = this.state.filmItems;
                     let result = prevFilms.concat(filmItems);
                     let categories = result.map(item => item.category).filter((item, index, some) => some.indexOf(item) === index);
                     categories.push('all');
@@ -133,12 +114,14 @@ class FilmsContainer extends Component {
                         return {
                             filmItems: result,
                             categories: categories,
-                            page: prevState.page + 1
+                            page: prevState.page + 1,
+                            bottom: window.scrollY,
                         }  
                     })
                 }
             })
         }
+    }
     }
 
     render() {
@@ -150,8 +133,7 @@ class FilmsContainer extends Component {
             sortByRating,
             categorySort: this.categorySort,
             ratingSort: this.ratingSort,
-            filmSearch: this.filmSearch,
-            infiniteScroll: this.infiniteScroll
+            filmSearch: this.filmSearch
         }
         return <Films {...props} />;
     }
