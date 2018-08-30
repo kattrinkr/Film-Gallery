@@ -1,6 +1,6 @@
 const Styles = theme => ({
     input: {
-        width: '100%',
+        width: '80%',
         flex: '1 1 70px',
         fontSize: '18px'
     }

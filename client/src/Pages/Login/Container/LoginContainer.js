@@ -2,18 +2,19 @@ import React, { Component } from 'react';
 
 import { connect} from 'react-redux'
 import { bindActionCreators } from 'redux'
+import { Redirect } from 'react-router-dom'
 
 import Login from '../View'
 import {emailValidator, passwordValidator} from '../Servises/validator'
 import * as Actions from '../Actions'
-
 
 class LoginContainer extends Component {
     constructor(props){
         super(props); 
 
         this.state = {
-            message: null
+            message: null,
+            name: ''
         }
         
         this.onSubmit = this.onSubmit.bind(this);
@@ -33,7 +34,6 @@ class LoginContainer extends Component {
     }
     
     onSubmit (data) {
-        //this.props.history.push(`${process.env.PUBLIC_URL}`+'/login-redux-form/success');
         fetch('/films-library/login', {
             method: 'POST', 
             headers: {
@@ -65,7 +65,13 @@ class LoginContainer extends Component {
             form: 'LoginForm',
             validate: LoginContainer.validate
         }
-        return <Login {...props} />;
+        let result;
+        if (name) {
+            result = <Redirect to={process.env.PUBLIC_URL + `/films/${name}`}/>
+        } else {
+            result = <Login {...props} />;
+        }
+        return result
     }
 }
 

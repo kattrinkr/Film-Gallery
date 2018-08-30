@@ -9,9 +9,9 @@ import Styles from './styles'
 
 const Registration = ({message, handleSubmit, classes}) => {
     return (
-        <div>
+        <div className={classes.login}>
             <form className={classes.form} onSubmit={handleSubmit}>  
-                <h1>REGISTRATION</h1>
+                <h1 className={classes.h1}>REGISTRATION</h1>
                 <Field name="name"
                    floatingLabelText="Name" 
                    className={classes.input}

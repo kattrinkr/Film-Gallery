@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 
 import Films from '../View'
 import {categorySortUrl, ratingSortUrl,filmSearchUrl, infiniteScrollUrl} from '../Servises'
@@ -13,13 +13,18 @@ class FilmsContainer extends Component {
             sortByRating: false,
             page: 2,
             bottom: 0,
-            search: ''
+            search: '',
+            name: this.props.match.params.user
         }
 
         this.infiniteScroll = this.infiniteScroll.bind(this);
+        this.logout = this.logout.bind(this);
     }
 
     componentDidMount() {
+        if (!this.props.match.params.user) {
+            return this.props.history.push(`${process.env.PUBLIC_URL}`+'/login');
+        }
         window.addEventListener('scroll', this.infiniteScroll);
         fetch('/films-library')
         .then(res => res.json())
@@ -98,8 +103,14 @@ class FilmsContainer extends Component {
         })
     }
 
+    logout() {
+        fetch('/films-library/logout', {method: 'POST'}).then();
+        return this.props.history.push(`${process.env.PUBLIC_URL}`+'/login');
+    }
+
     infiniteScroll (){
-        if (this.state.page < 4) {
+        const LIMIT = 4;
+        if (this.state.page < LIMIT) {
             let url = infiniteScrollUrl(this.state);
         if ((window.innerHeight + document.documentElement.scrollTop === document.documentElement.offsetHeight) && (window.scrollY > this.state.bottom)) {
             fetch(url)
@@ -125,17 +136,19 @@ class FilmsContainer extends Component {
     }
 
     render() {
-        const {filmItems, categories, category, sortByRating} = this.state;
+        const {filmItems, categories, category, sortByRating, name} = this.state;
         const props = {
             filmItems,
             categories,
             category,
             sortByRating,
+            name,
             categorySort: this.categorySort,
             ratingSort: this.ratingSort,
-            filmSearch: this.filmSearch
+            filmSearch: this.filmSearch,
+            logout: this.logout
         }
-        return <Films {...props} />;
+        return <Films {...props} />
     }
 }
 

@@ -32,7 +32,6 @@ class RegistrationContainer extends Component {
     }
     
     onSubmit (data) {
-        //this.props.history.push(`${process.env.PUBLIC_URL}`+'/login-redux-form/success');
         fetch('/films-library/registration', {
             method: 'POST', 
             headers: {

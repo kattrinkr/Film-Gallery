@@ -7,11 +7,11 @@ import { Field, reduxForm } from 'redux-form'
 import TextField from '../../../Components'
 import Styles from './styles';
 
-const Login = ({message, name, handleSubmit, classes}) => {
+const Login = ({message, handleSubmit, classes}) => {
     return (
-        <div>
+        <div className={classes.login}>
             <form className={classes.form} onSubmit={handleSubmit}>  
-                <h1>LOGIN</h1>
+                <h1 className={classes.h1}>LOGIN</h1>
                 <Field name="email"
                    floatingLabelText="Email" 
                    className={classes.input}
@@ -30,7 +30,6 @@ const Login = ({message, name, handleSubmit, classes}) => {
                   type="submit"> Log In!
                 </Button>
                 <p>{message}</p>
-                <p>{name}</p>
             </form>
         </div>
     )

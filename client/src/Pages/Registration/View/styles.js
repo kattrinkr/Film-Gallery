@@ -1,61 +1,41 @@
+import background from './images/registrationBackground.jpg'
+
 const Styles = theme => ({
     h1: {
-        color: '#757575',
+        color: '#172781',
         fontSize: '45px',
         textAlign: 'center'
     },
 
-    instruction: {
-        fontSize: '20px',
-        textAlign: 'center'
-    },
-
     form: {
-        width: '15%',
-        margin: '70px auto',
+        width: '20%',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        position: 'static'
-    },
-
-    input: {
-        width: '100%',
-        fontSize: '10px'
+        position: 'static',
+        backgroundColor: 'rgba(255, 255, 255, 0.4)',
+        borderRadius: '30px'
     },
 
     button: {
-        margin: '20px',
+        marginTop: '20px',
         width: '110px'
-    },
-
-    realTime: {
-        position: 'absolute',
-        top: '270px',
-        left: '1110px',
-        display: 'flex',
-        flexDirection: 'column',
     },
 
     p: {
         fontSize: '18px'
     },
 
-    emailError: {
-        position: 'absolute',
-        fontSize: '14px',
-        color: 'red',
-        top: '280px',
-        left: '816px'
-    },
-
-    passwordError: {
-        position: 'absolute',
-        fontSize: '14px',
-        color: 'red',
-        top: '348px',
-        left: '816px'
+    login: {
+        width: '100%',
+        height: '1000px',
+        background: `url(${background}) no-repeat center fixed`,
+        backgroundSize: '100% 100%',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center'
     }
-  });
+  })
   
   export default Styles;

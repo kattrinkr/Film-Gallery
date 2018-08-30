@@ -61,4 +61,9 @@ async function login(req, res, next) {
     })(req, res, next)
 }
 
-export {userValidator, registration, login}
+async function logout(req, res) {
+    await req.session.destroy();
+    res.send();
+}
+
+export {userValidator, registration, login, logout}
