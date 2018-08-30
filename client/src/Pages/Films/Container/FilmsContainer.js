@@ -22,7 +22,7 @@ class FilmsContainer extends Component {
     }
 
     componentDidMount() {
-        if (!this.props.match.params.user) {
+        if (!this.props.match.params.user || !this.props.location.key) {
             return this.props.history.push(`${process.env.PUBLIC_URL}`+'/login');
         }
         window.addEventListener('scroll', this.infiniteScroll);

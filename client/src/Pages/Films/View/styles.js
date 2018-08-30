@@ -93,7 +93,8 @@ const Styles = theme => ({
     gallery: {
         width: '100%',
         background: `url(${background}) repeat-y center fixed`,
-        backgroundSize: '100% 100%'
+        backgroundSize: '100% 100%',
+        minHeight: '1000px'
     }, 
 
     logout: {

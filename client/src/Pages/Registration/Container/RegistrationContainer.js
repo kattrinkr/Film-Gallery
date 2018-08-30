@@ -51,6 +51,7 @@ class RegistrationContainer extends Component {
             }
             this.setState(payload)    
             this.props.actions.setData(payload);
+            return this.props.history.push(`${process.env.PUBLIC_URL}`+'/login');
         })
     }
 
