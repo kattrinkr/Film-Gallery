@@ -22,4 +22,15 @@ async function getFilms(req, res) {
     }
 }
 
-export {getFilms}
+async function getOneFilm(req, res) {
+    if (req.params.id) {     
+        try {
+            const film = await Films.findById(req.params.id);
+            res.json(film);
+        } catch (err) {
+            res.status(500).send(err);
+        }
+    }
+}
+
+export {getFilms, getOneFilm}

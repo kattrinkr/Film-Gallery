@@ -98,10 +98,17 @@ const Styles = theme => ({
     }, 
 
     logout: {
+        width: '100px',
         fontSize: '24px',
         cursor: 'pointer',
         display: 'flex',
-        alignItems: 'center'
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderLeft: 'solid white 1px',
+        borderRight: 'solid white 1px',
+        '&:hover' : {
+            backgroundColor: 'rgba(217, 217, 217, 0.7)'
+        }
     }
   });
   

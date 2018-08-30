@@ -7,7 +7,7 @@ import MenuItem from '@material-ui/core/MenuItem'
 import Switch from '@material-ui/core/Switch'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
-import { Link } from "react-router-dom";
+import { Link } from "react-router-dom"
 import '../../../../node_modules/font-awesome/css/font-awesome.min.css'
 
 import {AVATARS} from '../Constants'

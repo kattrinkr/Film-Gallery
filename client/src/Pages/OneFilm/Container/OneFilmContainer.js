@@ -12,17 +12,28 @@ class OneFilmContainer extends Component {
         }
     }
 
+    componentDidMount() {
+        if (!this.props.location.key) {
+            return this.props.history.push(`${process.env.PUBLIC_URL}`+'/login');
+        } else {
+            fetch(`/films-library/definition/${this.state.id}`)
+            .then(res => res.json())
+            .then(film => {
+                if (film) {
+                    this.setState(() => {
+                        return {
+                            film: film
+                        }  
+                    })
+                }
+            })
+        }
+    }
+
     render() {
-        const {filmItems, categories, category, sortByRating} = this.state;
+        const {film} = this.state;
         const props = {
-            filmItems,
-            categories,
-            category,
-            sortByRating,
-            categorySort: this.categorySort,
-            ratingSort: this.ratingSort,
-            filmSearch: this.filmSearch,
-            logout: this.logout
+            film
         }
         return <OneFilm {...props} />;
     }

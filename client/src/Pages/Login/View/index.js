@@ -3,6 +3,7 @@ import React from 'react'
 import { withStyles } from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button'
 import { Field, reduxForm } from 'redux-form'
+import { Link } from "react-router-dom"
 
 import TextField from '../../../Components'
 import Styles from './styles';
@@ -31,6 +32,7 @@ const Login = ({message, handleSubmit, classes}) => {
                 </Button>
                 <p>{message}</p>
             </form>
+            <Button color="secondary" component={Link} to={process.env.PUBLIC_URL+`/registration`}>Sign Up?</Button>
         </div>
     )
 }
