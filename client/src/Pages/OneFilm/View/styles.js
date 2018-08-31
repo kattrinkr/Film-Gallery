@@ -65,8 +65,30 @@ const Styles = theme => ({
 
     back: {
         width: '100px',
+        marginTop: '20px',
         marginBottom: '20px'
+    },
+
+    rating: {
+        width: '60%',
+        borderTop: 'solid rgba(3, 55, 83, 0.76) 1px',
+        borderBottom: 'solid rgba(3, 55, 83, 0.76) 1px'
+    },
+
+    ratingButtons: {
+        marginBottom: '20px'
+    },
+
+    gallery: {
+        width: '60%',
+        borderBottom: 'solid rgba(3, 55, 83, 0.76) 1px'
+    },
+
+    comment: {
+        textAlign: 'left',
+        borderBottom: 'solid rgba(3, 55, 83, 0.76) 1px'
     }
+
   });
   
   export default Styles;

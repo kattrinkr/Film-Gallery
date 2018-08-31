@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 
 import OneFilm from '../View'
+import {ratingFetch, sendCommentFetch} from '../Servises'
 
 class OneFilmContainer extends Component {
     constructor(props){
@@ -40,23 +41,11 @@ class OneFilmContainer extends Component {
         }
     }
 
-    rating (event) {
-        fetch(`/films-library/rating/${this.state.id}`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json; charset=utf-8'
-            }, 
-            body: JSON.stringify({
-                rating: event.target.value
-            })})
-            .then(res => res.json())
-            .then(film => {
-                this.setState(() => {
-                    return {
-                        isRatingPut:  true
-                    }  
-                }) 
-            })
+    async rating (event) {
+        const result = await ratingFetch(event, this);
+        this.setState(() => {
+            return result  
+        })
     }
 
     rememberNewComment (event) {
@@ -68,23 +57,11 @@ class OneFilmContainer extends Component {
         })
     }
 
-    sendComment () {
-        fetch(`/films-library/comment/${this.state.id}`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json; charset=utf-8'
-            }, 
-            body: JSON.stringify({
-                comment: this.state.newComment
-            })})
-            .then(res => res.json())
-            .then(film => {
-                this.setState(() => {
-                    return {
-                        isCommentPut:  true
-                    }  
-                })
-            })
+    async sendComment () {
+        const result = await sendCommentFetch(this);
+        this.setState(() => {
+            return result  
+        })
     }
 
     logout() {
@@ -93,8 +70,9 @@ class OneFilmContainer extends Component {
     }
 
     render() {
-        const {name, film, filmComments, isRatingPut,newComment, isCommentPut} = this.state;
+        const {id,name, film, filmComments, isRatingPut,newComment, isCommentPut} = this.state;
         const props = {
+            id,
             name,
             film,
             filmComments,
