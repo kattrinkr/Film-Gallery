@@ -6,7 +6,8 @@ let filmSchema = mongoose.Schema({
     avatar: { type: String, required: true },
     gallery: { type: Array, default: [], required: true },
     rating: { type: Number, min: 1, max: 5 },
-    category: String
+    category: String,
+    comments: { type: Array, default: [], required: true },
 })
  
 let Films = mongoose.model('Films', filmSchema);

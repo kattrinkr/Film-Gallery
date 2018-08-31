@@ -23,7 +23,7 @@ class FilmsContainer extends Component {
 
     componentDidMount() {
         if (!this.props.match.params.user || !this.props.location.key) {
-            return this.props.history.push(`${process.env.PUBLIC_URL}`+'/login');
+            return this.props.history.push(`${process.env.PUBLIC_URL}/login`);
         }
         window.addEventListener('scroll', this.infiniteScroll);
         fetch('/films-library')
@@ -105,7 +105,7 @@ class FilmsContainer extends Component {
 
     logout() {
         fetch('/films-library/logout', {method: 'POST'}).then();
-        return this.props.history.push(`${process.env.PUBLIC_URL}`+'/login');
+        return this.props.history.push(`${process.env.PUBLIC_URL}/login`);
     }
 
     infiniteScroll (){

@@ -35,7 +35,7 @@ async function Passport(passport) {
                     if (!save) {
                         result = done(null, newUser, { message: 'Error with connection' })
                     } else {
-                        result = done(null, newUser, { message: 'Success'})
+                        result = done(null, newUser, { message: ''})
                     }
                 }
             } catch (err) {

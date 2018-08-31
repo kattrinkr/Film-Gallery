@@ -104,8 +104,8 @@ const Styles = theme => ({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        borderLeft: 'solid white 1px',
-        borderRight: 'solid white 1px',
+        borderLeft: 'solid rgba(252, 252, 252, 0.7) 2px',
+        borderRight: 'solid rgba(252, 252, 252, 0.7) 2px',
         '&:hover' : {
             backgroundColor: 'rgba(217, 217, 217, 0.7)'
         }

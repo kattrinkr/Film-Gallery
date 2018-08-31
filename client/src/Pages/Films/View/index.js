@@ -46,7 +46,7 @@ const Films = ({filmItems, categories, category, sortByRating, name, categorySor
                     <p className={classes.p}>Category: {item.category}</p>
                     <p>{item.description}</p>
                     <p className={classes.p}>Rating: {item.rating}</p>
-                    <Button className={classes.definition} key={item._id} variant="contained" color="primary" component={Link} to={process.env.PUBLIC_URL+`/films/${name}/definition/${item._id}`}>See more </Button>
+                    <Button className={classes.definition} variant="contained" color="primary" component={Link} to={process.env.PUBLIC_URL+`/films/${name}/definition/${item._id}`}>See more </Button>
                 </div>)}
             </div>
         </div>
