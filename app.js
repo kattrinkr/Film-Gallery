@@ -2,6 +2,7 @@ import express from 'express'
 import bodyPaser from 'body-parser'
 import mongoose from 'mongoose'
 import passport from 'passport'
+import cors from 'cors'
 
 import Passport from './config/passport'
 import {router as filmsRouter} from './routes/filmsRouter.js'
@@ -14,6 +15,7 @@ const app = express();
 async function run() {
     mongoose.connect('mongodb://users:aA7465315@ds225382.mlab.com:25382/film_library', { useNewUrlParser: true });
     await mongoose.connection;
+    app.use(cors());
     app.use(express.static(__dirname + '/public'));
     app.use(bodyPaser.json());
     app.use(bodyPaser.urlencoded({ extended: true }));
