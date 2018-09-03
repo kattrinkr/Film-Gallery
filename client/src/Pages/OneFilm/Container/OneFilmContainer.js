@@ -26,7 +26,7 @@ class OneFilmContainer extends Component {
         if (!this.props.location.key) {
             return this.props.history.push(`${process.env.PUBLIC_URL}/login`);
         } else {
-            fetch(`/films-library/definition/${this.state.id}`)
+            fetch(`https://film-library.herokuapp.com/films-library/definition/${this.state.id}`)
             .then(res => res.json())
             .then(film => {
                 if (film) {

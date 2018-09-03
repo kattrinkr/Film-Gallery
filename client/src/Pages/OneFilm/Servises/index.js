@@ -1,5 +1,5 @@
 async function ratingFetch(event, context) {
-    const response = await fetch(`/films-library/rating/${context.state.id}`, 
+    const response = await fetch(`https://film-library.herokuapp.com/films-library/rating/${context.state.id}`, 
     {
         method: 'POST',
         headers: {
@@ -14,7 +14,7 @@ async function ratingFetch(event, context) {
 }
 
 async function sendCommentFetch(context) {
-    const response = await fetch(`/films-library/comment/${context.state.id}`, 
+    const response = await fetch(`https://film-library.herokuapp.com/films-library/comment/${context.state.id}`, 
     {
         method: 'POST',
         headers: {

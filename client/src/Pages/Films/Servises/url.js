@@ -1,31 +1,33 @@
+const BACK_URL='https://film-library.herokuapp.com';
+
 function categorySortUrl(event, state) {
     let url;
     if (event.target.value !== 'all') {
         if (state.sortByRating) {
             if (state.search) {
-                url = `/films-library/${event.target.value}/sort/rating/film/${state.search}`
+                url = `${BACK_URL}/films-library/${event.target.value}/sort/rating/film/${state.search}`
             } else {
-                url = `/films-library/${event.target.value}/sort/rating`
+                url = `${BACK_URL}/films-library/${event.target.value}/sort/rating`
             }
         } else {
             if (state.search) {
-                url = `/films-library/${event.target.value}/film/${state.search}`
+                url = `${BACK_URL}/films-library/${event.target.value}/film/${state.search}`
             } else {
-                url = `/films-library/${event.target.value}`
+                url = `${BACK_URL}/films-library/${event.target.value}`
             }
         }
     } else {
         if (state.sortByRating) {
             if (state.search) {
-                url = `/films-library/sort/rating/film/${state.search}`
+                url = `${BACK_URL}/films-library/sort/rating/film/${state.search}`
             } else {
-                url = `/films-library/sort/rating`
+                url = `${BACK_URL}/films-library/sort/rating`
             }
         } else {
             if (state.search) {
-                url = `/films-library/film/${state.search}`
+                url = `${BACK_URL}/films-library/film/${state.search}`
             } else {
-                url = `/films-library`
+                url = `${BACK_URL}/films-library`
             }
         }
     }
@@ -38,33 +40,33 @@ function ratingSortUrl(state) {
     if (state.category !== 'all') {
         if (!state.sortByRating) {
             if (state.search) {
-                url = `/films-library/${state.category}/sort/rating/film/${state.search}`
+                url = `${BACK_URL}/films-library/${state.category}/sort/rating/film/${state.search}`
             } else {
-                url = `/films-library/${state.category}/sort/rating/`
+                url = `${BACK_URL}/films-library/${state.category}/sort/rating/`
             }
             sort = true;
         } else {
             if (state.search) {
-                url = `/films-library/${state.category}film/${state.search}`
+                url = `${BACK_URL}/films-library/${state.category}film/${state.search}`
             } else {
-                url = `/films-library/${state.category}`
+                url = `${BACK_URL}/films-library/${state.category}`
             }
             sort = false
         }
     } else {
         if (!state.sortByRating) {
             if (state.search) {
-                url = `/films-library/sort/rating/film/${state.search}`
+                url = `${BACK_URL}/films-library/sort/rating/film/${state.search}`
             } else {
-                url = `/films-library/sort/rating`
+                url = `${BACK_URL}/films-library/sort/rating`
             }
             sort = true;
         } else {
-            url = `/films-library`
+            url = `${BACK_URL}/films-library`
             if (state.search) {
-                url = `/films-library/film/${state.search}`
+                url = `${BACK_URL}/films-library/film/${state.search}`
             } else {
-                url = `/films-library/`
+                url = `${BACK_URL}/films-library/`
             }
             sort = false;
         }
@@ -80,29 +82,29 @@ function filmSearchUrl(event, state) {
     if (state.category !== 'all') {
         if (state.sortByRating) {
             if (event.target.value) {
-                url = `/films-library/${state.category}/sort/rating/film/${event.target.value}`
+                url = `${BACK_URL}/films-library/${state.category}/sort/rating/film/${event.target.value}`
             } else {
-                url = `/films-library/${state.category}/sort/rating`
+                url = `${BACK_URL}/films-library/${state.category}/sort/rating`
             }
         } else {
             if (event.target.value) {
-                url = `/films-library/${state.category}/film/${event.target.value}`
+                url = `${BACK_URL}/films-library/${state.category}/film/${event.target.value}`
             } else {
-                url = `/films-library/${state.category}`
+                url = `${BACK_URL}/films-library/${state.category}`
             }
         }
     } else {
         if (state.sortByRating) {
             if (event.target.value) {
-                url = `/films-library/sort/rating/film/${event.target.value}`
+                url = `${BACK_URL}/films-library/sort/rating/film/${event.target.value}`
             } else {
-                url = `/films-library/sort/rating`
+                url = `${BACK_URL}/films-library/sort/rating`
             }
         } else {
             if (event.target.value) {
-                url = `/films-library/film/${event.target.value}`
+                url = `${BACK_URL}/films-library/film/${event.target.value}`
             } else {
-                url = `/films-library`
+                url = `${BACK_URL}/films-library`
             }
         }
     }
@@ -114,29 +116,29 @@ function infiniteScrollUrl(state) {
     if (state.category !== 'all') {
         if (state.sortByRating) {
             if (state.search) {
-                url = `/films-library/${state.category}/pages/${state.page}/sort/rating/film/${state.search}`
+                url = `${BACK_URL}/films-library/${state.category}/pages/${state.page}/sort/rating/film/${state.search}`
             } else {
-                url = `/films-library/${state.category}/pages/${state.page}/sort/rating`
+                url = `${BACK_URL}/films-library/${state.category}/pages/${state.page}/sort/rating`
             }
         } else {
             if (state.search) {
-                url = `/films-library/${state.category}/pages/${state.page}/film/${state.search}`
+                url = `${BACK_URL}/films-library/${state.category}/pages/${state.page}/film/${state.search}`
             } else {
-                url = `/films-library/${state.category}/pages/${state.page}/`
+                url = `${BACK_URL}/films-library/${state.category}/pages/${state.page}/`
             }
         }
     } else {
         if (state.sortByRating) {
             if (state.search) {
-                url = `/films-library/pages/${state.page}/sort/rating/film/${state.search}`
+                url = `${BACK_URL}/films-library/pages/${state.page}/sort/rating/film/${state.search}`
             } else {
-                url = `/films-library/pages/${state.page}/sort/rating`
+                url = `${BACK_URL}/films-library/pages/${state.page}/sort/rating`
             }
         } else {
             if (state.search) {
-                url = `/films-library/pages/${state.page}/film/${state.search}`
+                url = `${BACK_URL}/films-library/pages/${state.page}/film/${state.search}`
             } else {
-                url = `/films-library/pages/${state.page}/`
+                url = `${BACK_URL}/films-library/pages/${state.page}/`
             }
         }
     }

@@ -29,7 +29,7 @@ class FilmsContainer extends Component {
             return this.props.history.push(`${process.env.PUBLIC_URL}/login`);
         }
         window.addEventListener('scroll', this.infiniteScroll);
-        fetch('/films-library')
+        fetch('https://film-library.herokuapp.com/films-library')
         .then(res => res.json())
         .then(filmItems => {
             if (filmItems) {
@@ -73,7 +73,7 @@ class FilmsContainer extends Component {
     }
 
     logout() {
-        fetch('/films-library/logout', {method: 'POST'}).then();
+        fetch('https://film-library.herokuapp.com/films-library/logout', {method: 'POST'}).then();
         return this.props.history.push(`${process.env.PUBLIC_URL}/login`);
     }
 

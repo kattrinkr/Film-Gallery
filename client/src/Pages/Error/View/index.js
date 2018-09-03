@@ -7,7 +7,7 @@ import Styles from './styles';
 const Error = ({classes}) => (
     <div className={classes.wrapper}>
       <h1 className={classes.message}>
-          404 - страница не найдена
+          404 - page is not found
         </h1>
     </div>
 )

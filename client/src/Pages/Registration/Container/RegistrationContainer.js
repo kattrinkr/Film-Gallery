@@ -32,7 +32,7 @@ class RegistrationContainer extends Component {
     }
     
     onSubmit (data) {
-        fetch('/films-library/registration', {
+        fetch('https://film-library.herokuapp.com/films-library/registration', {
             method: 'POST', 
             headers: {
                 'Content-Type': 'application/json; charset=utf-8'

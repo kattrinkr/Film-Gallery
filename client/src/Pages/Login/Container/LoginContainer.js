@@ -34,7 +34,7 @@ class LoginContainer extends Component {
     }
     
     onSubmit (data) {
-        fetch('/films-library/login', {
+        fetch('https://film-library.herokuapp.com/films-library/login', {
             method: 'POST', 
             headers: {
                 'Content-Type': 'application/json; charset=utf-8'
