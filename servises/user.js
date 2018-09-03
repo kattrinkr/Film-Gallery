@@ -57,6 +57,7 @@ async function login(req, res, next) {
                 message: info.message
             })
         }
+        console.log(result);
         return result;
     })(req, res, next)
 }
