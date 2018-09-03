@@ -24,7 +24,7 @@ async function run() {
     app.use(function(req, res) {
         res.status(404).json(ERROR_MESSAGE)
     })
-    app.listen(process.env.PUBLIC_URL || 3001, () => console.log('App is listening!'));
+    app.listen(process.env.PORT || 3001, () => console.log('App is listening!'));
     console.log()
 }
 run().catch(error => console.error(error.stack));
