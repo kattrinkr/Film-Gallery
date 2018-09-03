@@ -5,8 +5,8 @@ import { withStyles } from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button'
 import { Link } from "react-router-dom"
 import Input from '@material-ui/core/Input'
-import Gallery from 'react-grid-gallery'
 
+import GalleryOfPic from '../Components'
 import Styles from './styles'
 import {AVATARS} from '../../Films/Constants'
 import {GALLERY} from '../Constants'
@@ -35,9 +35,9 @@ const Films = ({id, name, film, filmComments, isRatingPut, isCommentPut, rating,
                     </div>
                     <p hidden={!isRatingPut} className={classes.p}>Thank you for choose!</p>
                 </div>
-                <div className={classes.gallery}>
+                <div className={classes.gallery} id='gallery'>
                     <p className={classes.p}>Gallery:</p>
-                    <Gallery images={GALLERY[`${id}`]}/>,
+                    <GalleryOfPic images={GALLERY[`${id}`]}/>
                 </div>
                 <div className={classes.comments}>
                     <p className={classes.p}>Comments:</p> 

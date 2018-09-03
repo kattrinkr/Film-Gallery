@@ -30,7 +30,7 @@ const GALLERY = {
         src: require(`../View/images/5b7d246ae2ff1252e007abbd/3.jpg`),
         thumbnail: require(`../View/images/5b7d246ae2ff1252e007abbd/3.jpg`),
         thumbnailWidth: 320,
-        thumbnailHeight: 350
+        thumbnailHeight: 200
     }],
     '5b7d247ee2ff1252e007abbe' : [{
         src: require(`../View/images/5b7d247ee2ff1252e007abbe/1.jpg`),
