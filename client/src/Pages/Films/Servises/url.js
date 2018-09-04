@@ -47,7 +47,7 @@ function ratingSortUrl(state) {
             sort = true;
         } else {
             if (state.search) {
-                url = `${BACK_URL}/films-library/${state.category}film/${state.search}`
+                url = `${BACK_URL}/films-library/${state.category}/film/${state.search}`
             } else {
                 url = `${BACK_URL}/films-library/${state.category}`
             }
@@ -77,32 +77,32 @@ function ratingSortUrl(state) {
     }
 }
 
-function filmSearchUrl(event, state) {
+function filmSearchUrl(search, state) {
     let url;
     if (state.category !== 'all') {
         if (state.sortByRating) {
-            if (event.target.value) {
-                url = `${BACK_URL}/films-library/${state.category}/sort/rating/film/${event.target.value}`
+            if (search) {
+                url = `${BACK_URL}/films-library/${state.category}/sort/rating/film/${search}`
             } else {
                 url = `${BACK_URL}/films-library/${state.category}/sort/rating`
             }
         } else {
-            if (event.target.value) {
-                url = `${BACK_URL}/films-library/${state.category}/film/${event.target.value}`
+            if (search) {
+                url = `${BACK_URL}/films-library/${state.category}/film/${search}`
             } else {
                 url = `${BACK_URL}/films-library/${state.category}`
             }
         }
     } else {
         if (state.sortByRating) {
-            if (event.target.value) {
-                url = `${BACK_URL}/films-library/sort/rating/film/${event.target.value}`
+            if (search) {
+                url = `${BACK_URL}/films-library/sort/rating/film/${search}`
             } else {
                 url = `${BACK_URL}/films-library/sort/rating`
             }
         } else {
-            if (event.target.value) {
-                url = `${BACK_URL}/films-library/film/${event.target.value}`
+            if (search) {
+                url = `${BACK_URL}/films-library/film/${search}`
             } else {
                 url = `${BACK_URL}/films-library`
             }

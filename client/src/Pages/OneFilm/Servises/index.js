@@ -1,5 +1,5 @@
 async function ratingFetch(event, context) {
-    const response = await fetch(`https://film-library.herokuapp.com/films-library/rating/${context.state.id}`, 
+    await fetch(`https://film-library.herokuapp.com/films-library/rating/${context.id}`, 
     {
         method: 'POST',
         headers: {
@@ -7,24 +7,28 @@ async function ratingFetch(event, context) {
         }, 
         body: JSON.stringify({
             rating: event.target.value
-    })})
+        })
+    })
     return {
         isRatingPut:  true
     }
 }
 
 async function sendCommentFetch(context) {
-    const response = await fetch(`https://film-library.herokuapp.com/films-library/comment/${context.state.id}`, 
+    await fetch(`https://film-library.herokuapp.com/films-library/comment/${context.id}`, 
     {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json; charset=utf-8'
         }, 
         body: JSON.stringify({
-            comment: context.state.newComment
-    })})
+            comment: context.newComment,
+            newComment: ''
+        })
+    })
     return {
-        isCommentPut:  true
+        isCommentPut:  true,
+        newComment: ''
     }
 }
 

@@ -10,10 +10,6 @@ import * as Actions from '../Actions'
 class RegistrationContainer extends Component {
     constructor(props){
         super(props); 
-        
-        this.state = {
-            message: null
-        }
 
         this.onSubmit = this.onSubmit.bind(this);
     }
@@ -48,8 +44,7 @@ class RegistrationContainer extends Component {
             const payload = {
                 email: data.email,
                 message: res.message
-            }
-            this.setState(payload)    
+            }  
             this.props.actions.setData(payload);
             if (!res.message) {
                 return this.props.history.push(`${process.env.PUBLIC_URL}/login`)
@@ -58,7 +53,7 @@ class RegistrationContainer extends Component {
     }
 
     render() {
-        const { message } = this.state;
+        const { message } = this.props.registration;
         const props = {
             message,
             onSubmit: this.onSubmit,
@@ -68,6 +63,9 @@ class RegistrationContainer extends Component {
         return <Registration {...props} />;
     }
 }
+const mapStateToProps = (state) => {
+    return state;
+}
 
 const mapDispatchToProps = (dispatch) => {
     return {
@@ -75,4 +73,4 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-export default connect(false, mapDispatchToProps)(RegistrationContainer)
+export default connect(mapStateToProps, mapDispatchToProps)(RegistrationContainer)

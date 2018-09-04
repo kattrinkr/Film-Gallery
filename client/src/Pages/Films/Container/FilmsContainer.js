@@ -1,21 +1,15 @@
 import React, { Component } from 'react'
 
+import { connect} from 'react-redux'
+import { bindActionCreators } from 'redux'
+
 import Films from '../View'
+import * as Actions from '../Actions'
 import {categorySortFetch, ratingSortFetch, filmSearchFetch, infiniteScrollFetch} from '../Servises'
 
 class FilmsContainer extends Component {
     constructor(props){
         super(props); 
-        this.state = {
-            filmItems: [], 
-            categories: [], 
-            category: 'all', 
-            sortByRating: false,
-            page: 2,
-            bottom: 0,
-            search: '',
-            name: this.props.match.params.user
-        }
 
         this.categorySort = this.categorySort.bind(this);
         this.ratingSort = this.ratingSort.bind(this);
@@ -35,14 +29,14 @@ class FilmsContainer extends Component {
             if (filmItems) {
                 let categories = filmItems.map(item => item.category).filter((item, index, some) => some.indexOf(item) === index);
                 categories.push('all');
-                this.setState(() => {
-                    return {
-                        filmItems: filmItems, 
-                        categories: categories,
-                        sortByRating: false,
-                        bottom: window.scrollY
-                    }  
-                })
+                const result = {
+                    name: this.props.match.params.user,
+                    filmItems: filmItems, 
+                    categories: categories,
+                    sortByRating: false,
+                    bottom: window.scrollY
+                }
+                this.props.actions.firstFilms(result);
             }
         })  
     }
@@ -52,24 +46,16 @@ class FilmsContainer extends Component {
     }
 
     async categorySort(event) {
-        const result = await categorySortFetch(event, this);
-        this.setState(() => {
-            return result  
-        })
+        this.props.actions.categorySort(await categorySortFetch(event, this.props.films))
     }
 
     async ratingSort() {
-        const result = await ratingSortFetch(this);
-        this.setState(() => {
-            return result  
-        }) 
+        this.props.actions.ratingSort(await ratingSortFetch(this.props.films))
     }
 
     async filmSearch(event) {
-        const result = await filmSearchFetch(event, this);
-        this.setState(() => {
-            return result  
-        })
+        const search = event.target.value;
+        this.props.actions.filmSearch(await filmSearchFetch(search, this.props.films));
     }
 
     logout() {
@@ -78,20 +64,19 @@ class FilmsContainer extends Component {
     }
 
     async infiniteScroll() {
-        const result = await infiniteScrollFetch(this);
-        this.setState(() => {
-            return result  
-        })
+        this.props.actions.infiniteScroll(await infiniteScrollFetch(this.props.films));
+        
     }
 
     render() {
-        const {filmItems, categories, category, sortByRating, name} = this.state;
+        const {name,  filmItems, categories, category, sortByRating} = this.props.films;
+
         const props = {
+            name,
             filmItems,
             categories,
             category,
             sortByRating,
-            name,
             categorySort: this.categorySort,
             ratingSort: this.ratingSort,
             filmSearch: this.filmSearch,
@@ -101,4 +86,14 @@ class FilmsContainer extends Component {
     }
 }
 
-export default FilmsContainer;
+const mapStateToProps = (state) => {
+    return state;
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        actions: bindActionCreators(Actions, dispatch)
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(FilmsContainer)

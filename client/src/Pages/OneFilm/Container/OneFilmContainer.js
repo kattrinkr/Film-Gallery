@@ -1,20 +1,15 @@
 import React, { Component } from 'react'
 
+import { connect} from 'react-redux'
+import { bindActionCreators } from 'redux'
+
 import OneFilm from '../View'
+import * as Actions from '../Actions'
 import {ratingFetch, sendCommentFetch} from '../Servises'
 
 class OneFilmContainer extends Component {
     constructor(props){
         super(props); 
-        this.state = {
-            film: {},
-            filmComments: [],
-            id: this.props.match.params.id,
-            name: this.props.match.params.user,
-            isRatingPut: false,
-            isCommentPut: false,
-            newComment: ''
-        }
 
         this.rating = this.rating.bind(this);
         this.logout = this.logout.bind(this);
@@ -26,51 +21,49 @@ class OneFilmContainer extends Component {
         if (!this.props.location.key) {
             return this.props.history.push(`${process.env.PUBLIC_URL}/login`);
         } else {
-            fetch(`https://film-library.herokuapp.com/films-library/definition/${this.state.id}`)
+            fetch(`https://film-library.herokuapp.com/films-library/definition/${this.props.match.params.id}`)
             .then(res => res.json())
             .then(film => {
                 if (film) {
-                    this.setState(() => {
-                        return {
-                            film: film,
-                            filmComments: film.comments
-                        }  
-                    })
+                    const result = {
+                        id: this.props.match.params.id,
+                        name: this.props.match.params.user,
+                        film: film,
+                        filmComments: film.comments,                 
+                        isRatingPut: false,
+                        isCommentPut: false
+                    }
+                    this.props.actions.firstFilm(result);
                 }
             })
         }
     }
 
     async rating (event) {
-        const result = await ratingFetch(event, this);
-        this.setState(() => {
-            return result  
-        })
+        this.props.actions.rating(await ratingFetch(event, this.props.oneFilm))
     }
 
     rememberNewComment (event) {
-        const newComment = event.target.value;
-        this.setState(() => {
-            return {
-                newComment: newComment
-            }  
-        })
+        const result = {
+            newComment: event.target.value
+        }
+        this.props.actions.rememberNewComment(result)
     }
 
     async sendComment () {
-        const result = await sendCommentFetch(this);
-        this.setState(() => {
-            return result  
-        })
+        if (this.props.oneFilm.newComment.length > 2) {
+            this.props.oneFilm.filmComments.push(this.props.oneFilm.newComment);
+            this.props.actions.sendComment(await sendCommentFetch(this.props.oneFilm))
+        }
     }
 
     logout() {
-        fetch('/films-library/logout', {method: 'POST'}).then();
+        fetch('https://film-library.herokuapp.com/films-library/logout', {method: 'POST'}).then();
         return this.props.history.push(`${process.env.PUBLIC_URL}/login`);
     }
 
     render() {
-        const {id,name, film, filmComments, isRatingPut,newComment, isCommentPut} = this.state;
+        const {id, name, film, filmComments, isRatingPut,newComment, isCommentPut} = this.props.oneFilm;
         const props = {
             id,
             name,
@@ -88,4 +81,14 @@ class OneFilmContainer extends Component {
     }
 }
 
-export default OneFilmContainer;
+const mapStateToProps = (state) => {
+    return state;
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        actions: bindActionCreators(Actions, dispatch)
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(OneFilmContainer)

@@ -1,4 +1,4 @@
-import background from '../../Films/View/images/filmsBackground.jpg'
+import background from '../../Films/View/images/filmsBackground1.jpg'
 
 const Styles = theme => ({
     name: {
@@ -75,8 +75,19 @@ const Styles = theme => ({
         borderBottom: 'solid rgba(3, 55, 83, 0.76) 1px'
     },
 
+    buttons: {
+        margin: '10px',
+        height: '26px',
+        border: 'none',
+        borderRadius: '6px',
+        color: 'white',
+        backgroundColor: 'rgba(48, 63, 159, 0.92)',
+        cursor: 'pointer'
+    },
+
     ratingButtons: {
-        marginBottom: '20px'
+        marginBottom: '20px',
+        textAlign: 'center'
     },
 
     gallery: {

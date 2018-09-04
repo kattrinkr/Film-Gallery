@@ -11,11 +11,6 @@ import * as Actions from '../Actions'
 class LoginContainer extends Component {
     constructor(props){
         super(props); 
-
-        this.state = {
-            message: null,
-            name: ''
-        }
         
         this.onSubmit = this.onSubmit.bind(this);
     }
@@ -50,14 +45,13 @@ class LoginContainer extends Component {
                 email: data.email,
                 name: res.name,
                 message: res.message
-            }
-            this.setState(payload)    
+            }   
             this.props.actions.setData(payload);
         })
     }
 
     render() {
-        const { message, name } = this.state;
+        const { message, name } = this.props.login;
         const props = {
             message,
             name,
@@ -74,6 +68,9 @@ class LoginContainer extends Component {
         return result
     }
 }
+const mapStateToProps = (state) => {
+    return state;
+}
 
 const mapDispatchToProps = (dispatch) => {
     return {
@@ -81,4 +78,4 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-export default connect(false, mapDispatchToProps)(LoginContainer)
+export default connect(mapStateToProps, mapDispatchToProps)(LoginContainer)

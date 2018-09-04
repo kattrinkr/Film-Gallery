@@ -25,29 +25,29 @@ const Films = ({id, name, film, filmComments, isRatingPut, isCommentPut, rating,
                 <p className={classes.definition}>{film.description}</p>
                 <p className={classes.p}>Rating: {film.rating}</p>
                 <div className={classes.rating}>
+                    <p className={classes.p}>Put your own rating to this film:</p>
                     <div className={classes.ratingButtons} hidden={isRatingPut}>
-                        <p className={classes.p}>Put your own rating to this film:</p>
-                        <button value={1} onClick={rating}>1</button>
-                        <button value={2} onClick={rating}>2</button>
-                        <button value={3} onClick={rating}>3</button>
-                        <button value={4} onClick={rating}>4</button>
-                        <button value={5} onClick={rating}>5</button>
+                        <button value={1} onClick={rating} className={classes.buttons}>1</button>
+                        <button value={2} onClick={rating} className={classes.buttons}>2</button>
+                        <button value={3} onClick={rating} className={classes.buttons}>3</button>
+                        <button value={4} onClick={rating} className={classes.buttons}>4</button>
+                        <button value={5} onClick={rating} className={classes.buttons}>5</button>
                     </div>
                     <p hidden={!isRatingPut} className={classes.p}>Thank you for choose!</p>
                 </div>
                 <div className={classes.gallery} id='gallery'>
                     <p className={classes.p}>Gallery:</p>
-                    <GalleryOfPic images={GALLERY[`${id}`]}/>
+                    <GalleryOfPic images={id? GALLERY[`${id}`] : []}/>
                 </div>
-                <div className={classes.comments}>
+                <div className={classes.comments}> 
                     <p className={classes.p}>Comments:</p> 
                     {filmComments.map((item, i) => 
                         <p className={classes.comment} key={i}>{`${i+1}: ${item}`}</p>
                     )}
                     <p className={classes.p}>Put your own comment to this film:</p>
-                    <Input className={classes.input} placeholder='Comment' onChange={rememberNewComment} value={isCommentPut? '' : newComment}/>
+                    <Input className={classes.input} placeholder='Comment' onChange={rememberNewComment} value={newComment}/>
+                    <button onClick={sendComment} className={classes.buttons}>Send</button>
                     <p hidden={!isCommentPut}>Thank you for comment!</p>
-                    <button onClick={sendComment}>Send</button>
                 </div>
                 <Button className={classes.back} variant="contained" color="primary" component={Link} to={process.env.PUBLIC_URL+`/films/${name}`}>Back</Button>
             </div>

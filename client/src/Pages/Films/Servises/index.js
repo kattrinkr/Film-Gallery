@@ -1,7 +1,7 @@
 import {categorySortUrl, ratingSortUrl,filmSearchUrl, infiniteScrollUrl} from './url'
 
 async function categorySortFetch(event, context) {
-    const url = categorySortUrl(event, context.state);
+    const url = categorySortUrl(event, context);
     const response = await fetch(url);
     const filmItems = await response.json();
     return {
@@ -13,7 +13,7 @@ async function categorySortFetch(event, context) {
 }
 
 async function ratingSortFetch(context) {
-    const result = ratingSortUrl(context.state);
+    const result = ratingSortUrl(context);
     const response = await fetch(result.url);
     const filmItems = await response.json(); 
     return {
@@ -24,9 +24,8 @@ async function ratingSortFetch(context) {
     } 
 }
 
-async function filmSearchFetch(event, context) {
-    const search=`${event.target.value}`
-    const url = filmSearchUrl(event, context.state);
+async function filmSearchFetch(search, context) {
+    const url = filmSearchUrl(search, context);
     const response = await fetch(url);
     const filmItems = await response.json();
     return {
@@ -39,23 +38,23 @@ async function filmSearchFetch(event, context) {
 
 async function infiniteScrollFetch(context) {
     const LIMIT = 4;
-    if (context.state.page < LIMIT) {
-        let url = infiniteScrollUrl(context.state);
-        if ((window.innerHeight + document.documentElement.scrollTop === document.documentElement.offsetHeight) && (window.scrollY > context.state.bottom)) {
+    if (context.page < LIMIT) {
+        let url = infiniteScrollUrl(context);
+        if ((window.innerHeight + document.documentElement.scrollTop === document.documentElement.offsetHeight) && (window.scrollY > context.bottom)) {
             const response = await fetch(url);
             const filmItems = await response.json();
-            let prevFilms = context.state.filmItems;
+            let prevFilms = context.filmItems;
             let result = prevFilms.concat(filmItems);
             let categories = result.map(item => item.category).filter((item, index, some) => some.indexOf(item) === index);
             categories.push('all');
                 return {
                     filmItems: result,
                     categories: categories,
-                    page: context.state.page + 1,
+                    page: context.page + 1,
                     bottom: window.scrollY,
                 }
-        }
-    }
+        } 
+    } 
 }
 
 export {categorySortFetch, ratingSortFetch, filmSearchFetch, infiniteScrollFetch}
