@@ -59,7 +59,10 @@ class FilmsContainer extends Component {
     }
 
     logout() {
-        fetch('https://film-library.herokuapp.com/films-library/logout', {method: 'POST'}).then();
+        this.props.login.email = '';
+        this.props.login.name = '';
+        this.props.login.message = '';
+        fetch('https://film-library.herokuapp.com/films-library/logout', {method: 'POST'}).then(res=>console.log(res));
         return this.props.history.push(`${process.env.PUBLIC_URL}/login`);
     }
 

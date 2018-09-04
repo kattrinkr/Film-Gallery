@@ -58,6 +58,9 @@ class OneFilmContainer extends Component {
     }
 
     logout() {
+        this.props.login.email = '';
+        this.props.login.name = '';
+        this.props.login.message = '';
         fetch('https://film-library.herokuapp.com/films-library/logout', {method: 'POST'}).then();
         return this.props.history.push(`${process.env.PUBLIC_URL}/login`);
     }
