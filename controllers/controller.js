@@ -12,7 +12,7 @@ async function getFilms(req, res) {
         sort.rating = -1;
     }
     if (req.params.film) {
-        search.title = new RegExp( `^${req.params.film}((([A-Za-z]+)?(\\s)?)+)?$`);
+        search.title = new RegExp( `^${req.params.film}((([A-Za-z]+)?(\\s)?)+)?$`, 'i');
     }
     try {
         const filmItems = await Films.find(search).sort(sort).limit(limit).skip(page*limit-limit);
@@ -22,14 +22,21 @@ async function getFilms(req, res) {
     }
 }
 
+const wrapper = promise => (
+    promise
+      .then(film => ({ film, error: null }))
+      .catch(error => ({ error, film: null }))
+)
+
 async function getOneFilm(req, res) {
-    if (req.params.id) {     
-        try {
-            const film = await Films.findById(req.params.id);
+    if (req.params.id) {  
+        const { error, film } = await wrapper(Films.findById(req.params.id));
+        if (!error) {
             res.json(film);
-        } catch (err) {
-            res.status(500).send(err);
-        }
+            return;
+        } else {
+            console.error(error)
+        } 
     }
 }
 
