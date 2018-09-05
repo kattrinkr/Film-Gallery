@@ -15,6 +15,7 @@ const app = express();
 async function run() {
     mongoose.connect('mongodb://users:aA7465315@ds225382.mlab.com:25382/film_library', { useNewUrlParser: true });
     await mongoose.connection;
+    app.disable('etag');
     app.use(cors());
     app.use(express.static(__dirname + '/public'));
     app.use(bodyPaser.json());
