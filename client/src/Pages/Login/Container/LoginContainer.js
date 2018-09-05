@@ -46,6 +46,7 @@ class LoginContainer extends Component {
                 name: res.name,
                 message: res.message
             }   
+
             this.props.actions.setData(payload);
         })
     }

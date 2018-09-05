@@ -45,6 +45,7 @@ class RegistrationContainer extends Component {
                 email: data.email,
                 message: res.message
             }  
+            
             this.props.actions.setData(payload);
             if (!res.message) {
                 return this.props.history.push(`${process.env.PUBLIC_URL}/login`)
