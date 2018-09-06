@@ -4,6 +4,7 @@ const initialState = {
     id: '',
     name: '',
     isRatingPut: false,
+    ratings: [],
     isCommentPut: false,
     newComment: ''
 };
@@ -25,7 +26,7 @@ const reducer = (state = initialState, action) => {
         case 'RATING': 
             result = {
                 ...state,
-                isRatingPut: action.isRatingPut 
+                isRatingPut: action.isRatingPut
             }
             break;
         case 'REMEMBER_COMMENT':

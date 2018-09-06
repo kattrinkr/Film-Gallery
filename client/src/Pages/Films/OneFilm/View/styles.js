@@ -1,4 +1,4 @@
-import background from '../../Films/View/images/filmsBackground1.jpg'
+import background from '../../View/images/filmsBackground1.jpg'
 
 const Styles = theme => ({
     name: {

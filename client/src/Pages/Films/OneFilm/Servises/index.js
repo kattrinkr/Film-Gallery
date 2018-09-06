@@ -9,8 +9,9 @@ async function ratingFetch(event, context) {
             rating: event.target.value
         })
     })
+    localStorage.setItem(context.id, context.id)
     return {
-        isRatingPut:  true
+        isRatingPut:  true,
     }
 }
 

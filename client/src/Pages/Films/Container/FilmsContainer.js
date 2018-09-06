@@ -19,9 +19,11 @@ class FilmsContainer extends Component {
     }
 
     componentDidMount() {
-        if (!this.props.match.params.user || !this.props.location.key) {
-            return this.props.history.push(`${process.env.PUBLIC_URL}/login`);
+        const name = localStorage.getItem('Name');
+        if (!name) {
+            return this.props.history.push(`${process.env.PUBLIC_URL}/login`)
         }
+        window.scrollTo(0, 0);
         window.addEventListener('scroll', this.infiniteScroll);
         fetch('https://film-library.herokuapp.com/films-library')
         .then(res => res.json())
@@ -30,11 +32,10 @@ class FilmsContainer extends Component {
                 let categories = filmItems.map(item => item.category).filter((item, index, some) => some.indexOf(item) === index);
                 categories.push('all');
                 const result = {
-                    name: this.props.match.params.user,
+                    name: name,
                     filmItems: filmItems, 
                     categories: categories,
-                    sortByRating: false,
-                    bottom: window.scrollY
+                    sortByRating: false
                 }
                 this.props.actions.firstFilms(result);
             }
@@ -63,6 +64,7 @@ class FilmsContainer extends Component {
         this.props.login.name = '';
         this.props.login.message = '';
         this.props.registration.message = '';
+        localStorage.clear();
         fetch('https://film-library.herokuapp.com/films-library/logout', {method: 'POST'}).then();
         return this.props.history.push(`${process.env.PUBLIC_URL}/login`);
     }

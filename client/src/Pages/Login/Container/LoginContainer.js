@@ -52,7 +52,7 @@ class LoginContainer extends Component {
     }
 
     render() {
-        const { message, name } = this.props.login;
+        const { message, name} = this.props.login;
         const props = {
             message,
             name,
@@ -62,7 +62,8 @@ class LoginContainer extends Component {
         }
         let result;
         if (name) {
-            result = <Redirect to={process.env.PUBLIC_URL + `/films/${name}`}/>
+            localStorage.setItem('Name', name);
+            result = <Redirect to={process.env.PUBLIC_URL + `/films/${name}`}/>;
         } else {
             result = <Login {...props} />;
         }

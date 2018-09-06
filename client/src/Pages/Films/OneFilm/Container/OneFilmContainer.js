@@ -18,9 +18,11 @@ class OneFilmContainer extends Component {
     }
 
     componentDidMount() {
-        if (!this.props.location.key) {
-            return this.props.history.push(`${process.env.PUBLIC_URL}/login`);
+        const name = localStorage.getItem('Name');
+        if (!name) {
+            return this.props.history.push(`${process.env.PUBLIC_URL}/login`)
         } else {
+            window.scrollTo(0, 0);
             fetch(`https://film-library.herokuapp.com/films-library/definition/${this.props.match.params.id}`)
             .then(res => res.json())
             .then(film => {
@@ -31,6 +33,7 @@ class OneFilmContainer extends Component {
                         film: film,
                         filmComments: film.comments,                 
                         isRatingPut: false,
+                        ratings: [],
                         isCommentPut: false
                     }
                     this.props.actions.firstFilm(result);
@@ -62,18 +65,21 @@ class OneFilmContainer extends Component {
         this.props.login.name = '';
         this.props.login.message = '';
         this.props.registration.message = '';
+        localStorage.clear();
         fetch('https://film-library.herokuapp.com/films-library/logout', {method: 'POST'}).then();
         return this.props.history.push(`${process.env.PUBLIC_URL}/login`);
     }
 
     render() {
-        const {id, name, film, filmComments, isRatingPut,newComment, isCommentPut} = this.props.oneFilm;
+        const {id, name, film, filmComments, isRatingPut, newComment, isCommentPut} = this.props.oneFilm;
+        const ratingsAlreadyPut = localStorage.getItem(id);
         const props = {
             id,
             name,
             film,
             filmComments,
             isRatingPut,
+            ratingsAlreadyPut,
             newComment,
             isCommentPut,
             rating: this.rating,

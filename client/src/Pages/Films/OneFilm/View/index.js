@@ -8,10 +8,10 @@ import Input from '@material-ui/core/Input'
 
 import GalleryOfPic from '../Components'
 import Styles from './styles'
-import {AVATARS} from '../../Films/Constants'
+import {AVATARS} from '../../Constants'
 import {GALLERY} from '../Constants'
 
-const Films = ({id, name, film, filmComments, isRatingPut, isCommentPut, rating, rememberNewComment, newComment, sendComment, logout, classes}) => {
+const Films = ({id, name, film, filmComments, isRatingPut, ratingsAlreadyPut, isCommentPut, rating, rememberNewComment, newComment, sendComment, logout, classes}) => {
     return (
         <div className={classes.library}>
             <div className={classes.dashboard}>
@@ -26,14 +26,14 @@ const Films = ({id, name, film, filmComments, isRatingPut, isCommentPut, rating,
                 <p className={classes.p}>Rating: {film.rating}</p>
                 <div className={classes.rating}>
                     <p className={classes.p}>Put your own rating to this film:</p>
-                    <div className={classes.ratingButtons} hidden={isRatingPut}>
+                    <div className={classes.ratingButtons} hidden={isRatingPut || ratingsAlreadyPut}>
                         <button value={1} onClick={rating} className={classes.buttons}>1</button>
                         <button value={2} onClick={rating} className={classes.buttons}>2</button>
                         <button value={3} onClick={rating} className={classes.buttons}>3</button>
                         <button value={4} onClick={rating} className={classes.buttons}>4</button>
                         <button value={5} onClick={rating} className={classes.buttons}>5</button>
                     </div>
-                    <p hidden={!isRatingPut} className={classes.p}>Thank you for choose!</p>
+                    <p hidden={!isRatingPut && !ratingsAlreadyPut} className={classes.p}>Thank you for choose!</p>
                 </div>
                 <div className={classes.gallery} id='gallery'>
                     <p className={classes.p}>Gallery:</p>

@@ -11,7 +11,7 @@ const reducer = (state = initialState, action) => {
                     ...state,
                     name: action.name,
                     email: action.email,
-                    message: action.message  
+                    message: action.message 
                 }
             break;
             default: 

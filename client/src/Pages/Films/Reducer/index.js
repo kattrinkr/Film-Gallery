@@ -19,7 +19,8 @@ const reducer = (state = initialState, action) => {
                 filmItems: action.filmItems, 
                 categories: action.categories,
                 sortByRating: action.sortByRating,
-                bottom: action.bottom 
+                page: 2,
+                bottom: 0  
             }
             break;
         case 'CATEGORY_SORT': 
