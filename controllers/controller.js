@@ -43,9 +43,9 @@ async function getOneFilm(req, res) {
 
 async function updateFilmRating(req, res) {
     if (req.params.id) {  
-        let { error, filmById } = await wrapper(Films.findById(req.params.id));
-        const newRating = Math.round((+filmById.rating + +req.body.rating) / 2);
+        let { error, film } = await wrapper(Films.findById(req.params.id));
         if (!error) {
+            const newRating = Math.round((+film.rating + +req.body.rating) / 2);
             let { error, film } = await wrapper(Films.findOneAndUpdate({_id: req.params.id}, {rating: newRating}));
             if (!error) {
                 res.json(film);
