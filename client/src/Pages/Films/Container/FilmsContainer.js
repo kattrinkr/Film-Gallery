@@ -10,7 +10,6 @@ import {categorySortFetch, ratingSortFetch, filmSearchFetch, infiniteScrollFetch
 class FilmsContainer extends Component {
     constructor(props){
         super(props); 
-
         this.categorySort = this.categorySort.bind(this);
         this.ratingSort = this.ratingSort.bind(this);
         this.filmSearch = this.filmSearch.bind(this);
@@ -19,7 +18,9 @@ class FilmsContainer extends Component {
     }
 
     componentDidMount() {
-        const name = localStorage.getItem('Name');
+        const state = JSON.parse(localStorage.getItem('state'));
+        const name = state.login.name;
+
         if (!name) {
             return this.props.history.push(`${process.env.PUBLIC_URL}/login`)
         }

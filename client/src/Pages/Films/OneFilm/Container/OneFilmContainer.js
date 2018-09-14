@@ -18,7 +18,9 @@ class OneFilmContainer extends Component {
     }
 
     componentDidMount() {
-        const name = localStorage.getItem('Name');
+        const state = JSON.parse(localStorage.getItem('state'));
+        const name = state.login.name;
+        
         if (!name) {
             return this.props.history.push(`${process.env.PUBLIC_URL}/login`)
         } else {

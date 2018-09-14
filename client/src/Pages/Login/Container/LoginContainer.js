@@ -63,7 +63,6 @@ class LoginContainer extends Component {
         }
         let result;
         if (name) {
-            localStorage.setItem('Name', name);
             result = <Redirect to={process.env.PUBLIC_URL + `/films/${name}`}/>;
         } else {
             result = <Login {...props} />;
